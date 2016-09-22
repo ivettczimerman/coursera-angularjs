@@ -1,40 +1,59 @@
 (function () {
-'use strict';
+	
+	angular.module('shop-app', [])
+	.service('ListService', ListService)
+	.controller('toBuyController', toBuyController)
+	.controller('boughtController', boughtController);
 
-angular.module('LunchCheckerApp', [])
+function ListService() {
+	var service = this;
+	var toBuy = [{
+		name: "banana",
+		quantity: 2
+	},
+	{
+		name: "apple",
+		quantity: 3
+	},
+	{
+		name: "pear",
+		quantity: 2
+	},
+	{
+		name: "grapes",
+		quantity: 6
+	},
+	{
+		name: "bread",
+		quantity: 1
+	}];
+	
+	var bought = [];
 
-.controller('LunchCheckerController', LunchChecker);
+	service.getToBuy = function(){
+		return toBuy;
+	}
+	
+	service.boughtItem = function(indexItem){
+		bought.push(toBuy.splice(indexItem, 1)[0]);
+	}
+	
+	service.getBought = function(){
+		return bought;
+	}
+}
 
-LunchChecker.$inject = ['$scope'];
-
-function LunchChecker ($scope) {
-
-  $scope.message = "";
-  $scope.lunch = "";
-
-  $scope.showMessage = function () {
-
-      if($scope.lunch == "") {
-        $scope.message = "Please enter data first";
-        $scope.fontcolor = "black"
-        $scope.bordercolor = "red";
-      }
-
-      else{ // input box not empty
-        var splitlunch = [];
-        splitlunch = $scope.lunch.split(',');
-        $scope.bordercolor = "green";
-
-        if (splitlunch.length <= 3){ //less than 4 elements
-          $scope.message = "Enjoy";
-          $scope.fontcolor = "green";
-        }
-        else { // more than 3 elements
-          $scope.message = "Too Much";
-          $scope.fontcolor = "red";
-        }
-      } // end of non empty input box
-  };
-};
-
+toBuyController.$inject = ['$scope', 'ListService'];
+function toBuyController($scope, ListService){
+	this.items = ListService.getToBuy();
+	
+	this.bought = function(itemIndex){
+		ListService.boughtItem(itemIndex);
+	}
+}
+	
+boughtController.$inject = ['$scope', 'ListService'];
+function boughtController($scope, ListService){
+	this.items = ListService.getBought();
+}	
 })();

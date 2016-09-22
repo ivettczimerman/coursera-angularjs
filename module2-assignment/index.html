@@ -1,17 +1,54 @@
-<!DOCTYPE html>
-<html ng-app="LunchCheckerApp">
-  <head>
-    <meta charset="utf-8">
-    <script src="angular.min.js"></script>
-    <script src="app.js"></script>
-    <title> Lunch Check</title>
-  </head>
-  <body>
-    <h1>Check your lunch: was it too much?</h1>
-    <div ng-controller="LunchCheckerController">
-      <input type="text" ng-model="lunch" style ="border-color: {{bordercolor}}">
-      <button ng-click="showMessage()"> Check if too much</button>
-      <h5 ng-model="message" style="color: {{fontcolor}}">{{message}}</h5>
-    </div>
-  </body>
-</html>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta name="viewport" content = "width=device-width">
+		<meta charset="utf-8">
+		
+		<script src="angular.min.js"></script>
+		<script src="app.js"> </script>
+		
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="font-awesome.min.css">
+		<title> Check Off</title>
+	</head>
+	
+	<body ng-app = "shop-app">
+		<div class = "container">
+			<div class = "jumbotron">
+			<h1><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping List </h1>
+			</div>
+			<div class = "row">
+				<div class = "col-xs-12 col-md-6 col-lg-6" ng-controller = "toBuyController as toBuy">
+					<h2> To Buy List:</h2>
+						<div class = "row" ng-repeat = "item in toBuy.items">
+							<div class = "col-xs-9 col-md-9 col-lg-9">
+								 Buy {{item.quantity}} {{item.name}}
+							</div>
+							
+							<div class = "col-xs-3 col-md-3 col-lg-3">
+								<button class="btn btn-default" ng-click="toBuy.bought($item)"> Bought </button>
+							</div>
+						</div>
+						
+						<div class = "row" ng-if = "!toBuy.items.length">
+							<h3><i class="fa fa-check" aria-hidden="true"></i> Everything is bought. </h3>
+						</div>
+				</div>
+				
+				<div class = "col-xs-12 col-md-6 col-lg-6" ng-controller = "boughtController as bought">
+					<h2> Already Bought List: </h2>
+						<div class = "row" ng-repeat = "item in bought.items">
+						
+							<div class = "col-xs-12 col-md-12 col-lg-12">
+								Bought {{item.quantity}} {{item.name}}
+							</div>
+						</div>
+						
+						<div class = "row" ng-if = "!bought.items.length">
+							<h3> Nothing bought yet.  <i class="fa fa-shopping-basket" aria-hidden="true"></i></h3>
+						</div>
+				</div>
+			</div> <!-- End of row -->
+		</div> <!-- End of container -->
+	</body>
+</html> 
