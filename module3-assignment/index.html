@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app='MenuFilterApp'>
+  <head>
+    <meta charset="utf-8">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="font-awesome.min.css">
+    <title>Search Menu Item</title>
+  </head>
+  <body>
+	<div class = "container">
+    <h2>Menu List Narrow Down Search</h2>
+
+    <div ng-controller='MenuFilterController as menu'>
+      <h3>List of Menu Items</h3>
+	  <input type="text" placeholder="Search Menu Item" ng-model= "searchWord"></input>
+	  <button class = "btn btn-default" ng-click = "getFilteredMenu()"><i class="fa fa-cut" aria-hidden="true"></i> Narrow it down for me!</button>
+      <br><br>
+	  <ul>
+	  <list-item> </list-item>
+	  </ul>
+    </div>
+
+    </div>
+	</div>
+  </body>
+</html>
